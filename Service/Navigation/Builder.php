@@ -90,7 +90,9 @@ class Builder implements BuilderInterface
         if ($navigationType == self::TYPE_MOBILE) {
             return $category->getIncludeInMobileNavigation();
         }
-
-        return $category->getIncludeInMenu();
+        if ($navigationType == self::TYPE_DESKTOP) {
+            return $category->getIncludeInMenu();
+        }
+        return true;
     }
 }
