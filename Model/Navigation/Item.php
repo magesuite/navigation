@@ -216,4 +216,9 @@ class Item extends \Magento\Framework\DataObject
     {
         return $this->categoryIconHelper->getMimeType($this->category);
     }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
 }
