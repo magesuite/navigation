@@ -85,7 +85,7 @@ class Builder implements BuilderInterface
         return $categories;
     }
 
-    protected function isVisible($category, $navigationType = self::TYPE_DESKTOP)
+    public function isVisible($category, $navigationType = self::TYPE_DESKTOP)
     {
         if ($navigationType == self::TYPE_MOBILE) {
             return $category->getIncludeInMobileNavigation();
