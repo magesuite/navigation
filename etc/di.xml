@@ -24,4 +24,8 @@
     <type name="Magento\MediaStorage\Model\File\Validator\NotProtectedExtension">
         <plugin name="allow_svg_file_type_image_for_category" type="MageSuite\Navigation\Plugin\MediaStorage\Model\File\Validator\NotProtectedExtension\AllowSvgFileTypeImageForCategory"/>
     </type>
+
+    <type name="Magento\Theme\Block\Html\Topmenu">
+        <plugin name="catalogTopmenu" type="Magento\Catalog\Plugin\Block\Topmenu" disabled="true" />
+    </type>
 </config>
