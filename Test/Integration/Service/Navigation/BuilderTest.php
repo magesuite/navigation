@@ -96,7 +96,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     public function testItReturnsCategoriesWithCorrectAttributes()
     {
         $result = $this->builder->build(self::ROOT_CATEGORY_ID);
-        $this->assertCount(10, $result);
+        $this->assertCount(11, $result);
         $this->assertEquals('http://localhost/index.php/testurl.html', $result[8]->getUrl());
         $this->assertEquals('http://localhost/index.php/testurl.html', $result[9]->getUrl());
         $this->assertEquals('cat14', $result[8]->getIdentifier());
@@ -134,6 +134,20 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $navigationItem = $navigationItem->getSubItems()[0];
         $this->assertEquals(16, $navigationItem->getId());
         $this->assertFalse($navigationItem->hasImageTeaser());
+    }
+
+    /**
+     * @magentoAppIsolation enabled
+     * @magentoDbIsolation enabled
+     * @magentoAppArea frontend
+     * @magentoDataFixture Magento/Catalog/_files/categories.php
+     * @magentoDataFixture loadCategoriesWithCustomAttributes
+     */
+    public function testItProcessesDirctivesProperly()
+    {
+        $result = $this->builder->build(2);
+        $url = $result[10]->getUrl();
+        $this->assertEquals('http://localhost/index.php/url-to-some-nice-page/', $url, 'Failed to assert that directives has been processed correctly.');
     }
 
     public static function loadCategoriesNotIncludedInMenu()
