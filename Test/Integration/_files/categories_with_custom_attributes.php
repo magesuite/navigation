@@ -1,8 +1,5 @@
 <?php
-/**
- * Copyright © 2016 Magento. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
 $product = $objectManager->create('Magento\Catalog\Model\Product');
@@ -115,6 +112,8 @@ $category->setId(15)
     ->save()
     ->reindex();
 
+
+
 $category = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Catalog\Model\Category');
 $category->isObjectNew(true);
 $category
@@ -135,5 +134,27 @@ $category
     ->setImageTeaserSlogan('Image Teaser Slogan')
     ->setImageTeaserCtaLabel('Image Teaser CTA Label')
     ->setImageTeaserCtaLink('url')
+    ->save()
+    ->reindex();
+
+$category = $objectManager->create('Magento\Catalog\Model\Category');
+$category->isObjectNew(true);
+$category->setId(17)
+    ->setName('Category with custom url with directives')
+    ->setParentId(2)
+    ->setPath('1/2/17')
+    ->setLevel(2)
+    ->setAvailableSortBy('name')
+    ->setDefaultSortBy('name')
+    ->setIsActive(true)
+    ->setCategoryCustomUrl('{{store url="url-to-some-nice-page"}}')
+    ->setCategoryIdentifier('cat17')
+    ->setPosition(105)
+    ->setImageTeaser('teaser.png')
+    ->setImageTeaserSlogan('Image Teaser Slogan')
+    ->setImageTeaserDescription('Image Teaser Description')
+    ->setImageTeaserCtaLabel('Image Teaser Cta Label')
+    ->setImageTeaserCtaLink('url')
+
     ->save()
     ->reindex();
