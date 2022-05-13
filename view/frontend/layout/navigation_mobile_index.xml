@@ -13,6 +13,7 @@
                 <arguments>
                     <argument name="icon_url" xsi:type="string">images/icons/offcanvas-navigation/icon-next.svg</argument>
                     <argument name="css_class" xsi:type="string">cs-offcanvas-navigation__icon cs-offcanvas-navigation__icon--next</argument>
+                    <argument name="alt_text" xsi:type="string" translate="true">Next</argument>
                     <argument name="inlined" xsi:type="boolean">true</argument>
                     <argument name="lazy_loaded" xsi:type="boolean">true</argument>
                 </arguments>
@@ -23,6 +24,7 @@
                 <arguments>
                     <argument name="icon_url" xsi:type="string">images/icons/offcanvas-navigation/icon-prev.svg</argument>
                     <argument name="css_class" xsi:type="string">cs-offcanvas-navigation__icon cs-offcanvas-navigation__icon--prev</argument>
+                    <argument name="alt_text" xsi:type="string" translate="true">Previous</argument>
                     <argument name="inlined" xsi:type="boolean">true</argument>
                     <argument name="lazy_loaded" xsi:type="boolean">true</argument>
                 </arguments>
