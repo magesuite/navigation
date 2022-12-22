@@ -160,7 +160,7 @@
                 </item>
             </argument>
             <htmlContent name="html_content">
-                <argument name="block" xsi:type="object">MageSuite\Navigation\Block\Adminhtml\Category\AssignFeaturedProducts</argument>
+                <block name="assign_featured_products" class="MageSuite\Navigation\Block\Adminhtml\Category\AssignFeaturedProducts"/>
             </htmlContent>
         </container>
     </fieldset>
