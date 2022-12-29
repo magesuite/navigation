@@ -202,31 +202,50 @@ class Item extends \Magento\Framework\DataObject
         return !empty($this->category->getCategoryCustomUrl());
     }
 
-    public function getCustomUrl(): ?string
+    /**
+     * @return string|null
+     */
+    public function getCustomUrl()
     {
         return $this->category->getCategoryCustomUrl();
     }
 
-    public function isUrlDisabled(): bool
+    /**
+     * @return bool
+     */
+    public function isUrlDisabled()
     {
         return (bool)$this->category->getUrlDisabled();
     }
 
+    /**
+     * @return array
+     */
     public function getIdentities()
     {
         return $this->category->getIdentities();
     }
 
+    /**
+     * @return string|null
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     public function getCategoryIcon()
     {
         return $this->categoryIconHelper->getUrl($this->category);
     }
 
+    /**
+     * @return false|string|null
+     */
     public function getCategoryIconMimeType()
     {
         return $this->categoryIconHelper->getMimeType($this->category);
     }
 
+    /**
+     * @return \Magento\Catalog\Api\Data\CategoryInterface|\Magento\Catalog\Model\Category
+     */
     public function getCategory()
     {
         return $this->category;

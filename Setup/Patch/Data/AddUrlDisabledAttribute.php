@@ -1,13 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\Navigation\Setup\Patch\Data;
 
 class AddUrlDisabledAttribute implements \Magento\Framework\Setup\Patch\DataPatchInterface
 {
+    protected \Magento\Framework\Setup\ModuleDataSetupInterface $moduleDataSetup;
+    protected \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory;
+
     public function __construct(
-        protected \Magento\Framework\Setup\ModuleDataSetupInterface $moduleDataSetup,
-        protected \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
-    ) {}
+        \Magento\Framework\Setup\ModuleDataSetupInterface $moduleDataSetup,
+        \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
+    ) {
+        $this->moduleDataSetup = $moduleDataSetup;
+        $this->eavSetupFactory = $eavSetupFactory;
+    }
 
     public function apply(): self
     {
@@ -39,12 +47,12 @@ class AddUrlDisabledAttribute implements \Magento\Framework\Setup\Patch\DataPatc
         return $this;
     }
 
-    public static function getDependencies()
+    public static function getDependencies(): array
     {
         return [];
     }
 
-    public function getAliases()
+    public function getAliases(): array
     {
         return [];
     }
