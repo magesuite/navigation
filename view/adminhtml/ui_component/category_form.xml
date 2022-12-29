@@ -52,9 +52,29 @@
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="label" xsi:type="string" translate="true">Custom target URL</item>
                     <item name="notice" xsi:type="string" translate="true">
-                        Links to this category will be replaced with above URL when provided. Use absolute URL (starts with https://) to redirect outside the shop. Use relative URL (i.e. customer/account/login/) to redirect within the shop.
+                        Links to this category will be replaced with above URL when provided.
+                        Use absolute URL (starts with https://) to redirect outside the shop.
+                        Use relative URL (i.e. customer/account/login/) to redirect within the shop.
                     </item>
                     <item name="additionalClasses" xsi:type="string">cs-csfeature__logo</item>
+                </item>
+            </argument>
+        </field>
+        <field name="url_disabled">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="label" xsi:type="string" translate="true">Disable URL</item>
+                    <item name="notice" xsi:type="string" translate="true">
+                        When enabled clicking on the category won't redirect user to this category.
+                    </item>
+                    <item name="additionalClasses" xsi:type="string">cs-csfeature__logo</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="string">1</item>
+                        <item name="false" xsi:type="string">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
                 </item>
             </argument>
         </field>
