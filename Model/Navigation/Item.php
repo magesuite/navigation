@@ -125,7 +125,7 @@ class Item extends \Magento\Framework\DataObject
      */
     public function getUrl()
     {
-        $customUrl = $this->category->getCategoryCustomUrl();
+        $customUrl = $this->isUrlDisabled() ? '#' : $this->category->getCategoryCustomUrl();
 
         if (!$customUrl) {
             return $this->category->getUrl();
@@ -200,6 +200,16 @@ class Item extends \Magento\Framework\DataObject
     public function hasCustomUrl()
     {
         return !empty($this->category->getCategoryCustomUrl());
+    }
+
+    public function getCustomUrl(): ?string
+    {
+        return $this->category->getCategoryCustomUrl();
+    }
+
+    public function isUrlDisabled(): bool
+    {
+        return (bool)$this->category->getUrlDisabled();
     }
 
     public function getIdentities()
