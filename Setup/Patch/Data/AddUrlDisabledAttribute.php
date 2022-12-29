@@ -11,7 +11,7 @@ class AddUrlDisabledAttribute implements \Magento\Framework\Setup\Patch\DataPatc
 
     public function __construct(
         \Magento\Framework\Setup\ModuleDataSetupInterface $moduleDataSetup,
-        \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory,
+        \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
     ) {
         $this->moduleDataSetup = $moduleDataSetup;
         $this->eavSetupFactory = $eavSetupFactory;
