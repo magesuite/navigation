@@ -125,7 +125,11 @@ class Item extends \Magento\Framework\DataObject
      */
     public function getUrl()
     {
-        $customUrl = $this->isUrlDisabled() ? '#' : $this->category->getCategoryCustomUrl();
+        if ($this->isUrlDisabled()) {
+            return 'javascript:void(0);';
+        }
+
+        $customUrl = $this->category->getCategoryCustomUrl();
 
         if (!$customUrl) {
             return $this->category->getUrl();
