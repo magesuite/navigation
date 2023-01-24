@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<indices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Smile_ElasticsuiteCore:etc/elasticsuite_indices.xsd">
+
+    <index identifier="catalog_category" defaultSearchType="category">
+        <type name="category" idFieldName="entity_id">
+            <mapping>
+                <field name="url_disabled" type="integer" />
+            </mapping>
+        </type>
+    </index>
+
+</indices>
