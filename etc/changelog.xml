@@ -4,7 +4,7 @@
         id="Creativestyle_Navigation"
         name="Creativestyle_Navigation">
         <changelog>
-            <tag version="v2.1.11" date="2023-01-25">
+            <tag version="2.1.11" date="2023-01-25">
                 <entry>
                     <type>FEATURE</type>
                     <overview>GetUrl will return # instead of javascript void if the URL is disabled</overview>
