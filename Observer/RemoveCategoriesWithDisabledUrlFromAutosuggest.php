@@ -19,9 +19,10 @@ class RemoveCategoriesWithDisabledUrlFromAutosuggest implements \Magento\Framewo
             return;
         }
 
-        $observer->getCategoryCollection()->addAttributeToFilter('url_disabled', [
-            ['neq' => 1],
-            ['null' => true]
-        ]);
+        $observer->getCategoryCollection()->addAttributeToFilter(
+            'url_disabled',
+            [['neq' => 1], ['null' => true]],
+            'left'
+        );
     }
 }
