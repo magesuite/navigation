@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:MageSuite_Changelog:etc/changelog.xsd">
+    <module
+        id="Creativestyle_Navigation"
+        name="Creativestyle_Navigation">
+        <changelog>
+            <tag version="v2.1.11" date="2023-01-25">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>GetUrl will return # instead of javascript void if the URL is disabled</overview>
+                    <ticket_id>RK-606</ticket_id>
+                </entry>
+            </tag>
+        </changelog>
+    </module>
+</config>
