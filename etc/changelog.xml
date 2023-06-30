@@ -11,6 +11,17 @@
                     <ticket_id>RK-606</ticket_id>
                 </entry>
             </tag>
+            <tag version="2.1.12" date="2023-06-50">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Add argument to allow show parent category name on return link in offcanvas navigation</overview>
+                    <description>
+                        The default value for this flag is false. 
+                        Corresponding changes in the template are introduced in theme-creativeshop v19.1
+                    </description>
+                    <ticket_id>KRA-32</ticket_id>
+                </entry>
+            </tag>
         </changelog>
     </module>
 </config>
