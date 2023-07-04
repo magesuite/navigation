@@ -10,12 +10,12 @@ class CustomUrlGenerator
     protected $storeManager;
 
     /**
-     * @var \Magento\Cms\Model\Template\FilterProvider 
+     * @var \Magento\Cms\Model\Template\FilterProvider
      */
     protected $filterProvider;
 
     /**
-     * @var \Psr\Log\LoggerInterface 
+     * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
