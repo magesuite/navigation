@@ -64,11 +64,18 @@ class Navigation extends \Magento\Framework\View\Element\Template implements \Ma
      */
     public function getItems()
     {
-        $rootCategoryId = $this->storeManager->getStore()->getRootCategoryId();
+        $rootCategoryId = $this->getRootCategoryId();
+        $navigationType = $this->getNavigationType();
 
-        $buildedNavigation = $this->navigationBuilder->build($rootCategoryId, $this->getNavigationType());
+        return $this->navigationBuilder->build($rootCategoryId, $navigationType);
+    }
 
-        return $buildedNavigation;
+    /**
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getRootCategoryId(): int
+    {
+        return (int)$this->storeManager->getStore()->getRootCategoryId();
     }
 
     public function getCacheTags()
