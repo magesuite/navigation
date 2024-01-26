@@ -4,53 +4,25 @@ namespace MageSuite\Navigation\Model\Navigation;
 
 class Item extends \Magento\Framework\DataObject
 {
-    /**
-     * @var \Magento\Catalog\Model\Category
-     */
-    protected $category;
+    protected \MageSuite\CategoryIcon\Helper\CategoryIcon $categoryIconHelper;
+    protected \MageSuite\Category\Helper\Category $categoryHelper;
+    protected \MageSuite\Navigation\Helper\Configuration\Category $categoryConfig;
+    protected \MageSuite\Navigation\Model\Navigation\FeaturedProductsFactory $featuredProductsFactory;
+    protected \MageSuite\Navigation\Model\Navigation\ImageTeaserFactory $imageTeaserFactory;
+    protected \MageSuite\Navigation\Service\Category\CustomUrlGenerator $customUrlGenerator;
+    protected \Magento\Catalog\Api\Data\CategoryInterface $category;
 
-    /**
-     * @var FeaturedProductsFactory
-     */
-    protected $featuredProductsFactory;
-
-    /**
-     * @var null|FeaturedProducts
-     */
-    protected $featuredProducts = null;
-
-    /**
-     * @var ImageTeaserFactory
-     */
-    protected $imageTeaserFactory;
-
-    /**
-     * @var null|ImageTeaser
-     */
-    protected $imageTeaser = null;
-
-    /**
-     * @var \MageSuite\Navigation\Service\Category\CustomUrlGenerator
-     */
-    protected $customUrlGenerator;
-
-    /**
-     * @var \MageSuite\Category\Helper\Category
-     */
-    protected $categoryHelper;
-
-    /**
-     * @var \MageSuite\CategoryIcon\Helper\CategoryIcon
-     */
-    protected $categoryIconHelper;
+    protected \MageSuite\Navigation\Model\Navigation\FeaturedProducts $featuredProducts;
+    protected \MageSuite\Navigation\Model\Navigation\ImageTeaser $imageTeaser;
 
     public function __construct(
-        \Magento\Catalog\Api\Data\CategoryInterface $category,
-        FeaturedProductsFactory $featuredProductsFactory,
-        ImageTeaserFactory $imageTeaserFactory,
-        \MageSuite\Navigation\Service\Category\CustomUrlGenerator $customUrlGenerator,
-        \MageSuite\Category\Helper\Category $categoryHelper,
         \MageSuite\CategoryIcon\Helper\CategoryIcon $categoryIconHelper,
+        \MageSuite\Category\Helper\Category $categoryHelper,
+        \MageSuite\Navigation\Helper\Configuration\Category $categoryConfig,
+        \MageSuite\Navigation\Model\Navigation\FeaturedProductsFactory $featuredProductsFactory,
+        \MageSuite\Navigation\Model\Navigation\ImageTeaserFactory $imageTeaserFactory,
+        \MageSuite\Navigation\Service\Category\CustomUrlGenerator $customUrlGenerator,
+        \Magento\Catalog\Api\Data\CategoryInterface $category,
         array $data = []
     ) {
         parent::__construct($data);
@@ -61,6 +33,7 @@ class Item extends \Magento\Framework\DataObject
         $this->customUrlGenerator = $customUrlGenerator;
         $this->categoryHelper = $categoryHelper;
         $this->categoryIconHelper = $categoryIconHelper;
+        $this->categoryConfig = $categoryConfig;
     }
 
     /**
@@ -119,11 +92,7 @@ class Item extends \Magento\Framework\DataObject
         return $this->category->getParentId();
     }
 
-    /**
-     * @return string
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     */
-    public function getUrl()
+    public function getUrl(): string
     {
         if ($this->isUrlDisabled()) {
             return '#';
@@ -138,103 +107,72 @@ class Item extends \Magento\Framework\DataObject
         return $this->customUrlGenerator->generate($customUrl);
     }
 
-    /**
-     * @return int
-     */
-    public function getProductCount()
+    public function getProductCount(): int
     {
         return $this->categoryHelper->getProductCount($this->category);
     }
 
-    /**
-     * @return FeaturedProducts
-     */
-    public function getFeaturedProducts()
+    public function getFeaturedProducts(): \MageSuite\Navigation\Model\Navigation\FeaturedProducts
     {
-        if (!$this->featuredProducts) {
+        if (!isset($this->featuredProducts)) {
             $this->featuredProducts = $this->featuredProductsFactory->create(['category' => $this->category]);
         }
 
         return $this->featuredProducts;
     }
 
-    /**
-     * @return \MageSuite\Navigation\Model\Navigation\ImageTeaser
-     */
-    public function getImageTeaser()
+    public function getImageTeaser(): \MageSuite\Navigation\Model\Navigation\ImageTeaser
     {
-        if (!$this->imageTeaser) {
+        if (!isset($this->imageTeaser)) {
             $this->imageTeaser = $this->imageTeaserFactory->create(['category' => $this->category]);
         }
 
         return $this->imageTeaser;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasFeaturedProducts()
+    public function hasFeaturedProducts(): bool
     {
         return !empty($this->getFeaturedProducts()->getProducts());
     }
 
-    /**
-     * @return bool
-     */
-    public function hasSubItems()
+    public function hasSubItems(): bool
     {
         return !empty($this->getSubItems());
     }
 
-    /**
-     * @return bool
-     */
-    public function hasImageTeaser()
+    public function hasImageTeaser(): bool
     {
-        if ($this->category->getLevel() > 2) {
+        if ($this->category->getLevel() > $this->categoryConfig->getMaxCategoryLevelForImageTeaser()) {
             return false;
         }
 
         return !empty($this->getImageTeaser()->getSlides());
     }
 
-    /**
-     * @return bool
-     */
-    public function hasCustomUrl()
+    public function hasCustomUrl(): bool
     {
         return !empty($this->category->getCategoryCustomUrl());
     }
 
-    /**
-     * @return string|null
-     */
-    public function getCustomUrl()
+    public function getCustomUrl(): ?string
     {
         return $this->category->getCategoryCustomUrl();
     }
 
-    /**
-     * @return bool
-     */
-    public function isUrlDisabled()
+    public function isUrlDisabled(): bool
     {
         return (bool)$this->category->getUrlDisabled();
     }
 
-    /**
-     * @return array
-     */
-    public function getIdentities()
+    public function getIdentities(): array
     {
         return $this->category->getIdentities();
     }
 
     /**
-     * @return string|null
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getCategoryIcon()
+    public function getCategoryIcon(): ?string
     {
         return $this->categoryIconHelper->getUrl($this->category);
     }
@@ -247,10 +185,7 @@ class Item extends \Magento\Framework\DataObject
         return $this->categoryIconHelper->getMimeType($this->category);
     }
 
-    /**
-     * @return \Magento\Catalog\Api\Data\CategoryInterface|\Magento\Catalog\Model\Category
-     */
-    public function getCategory()
+    public function getCategory(): \Magento\Catalog\Api\Data\CategoryInterface
     {
         return $this->category;
     }
