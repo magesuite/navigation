@@ -8,10 +8,13 @@
     "creativestyle/magesuite-media": "^1.0.0",
     "creativestyle/magesuite-category": "^1.0.0",
     "creativestyle/magesuite-product-tile": "^1.0.0",
-    "creativestyle/magesuite-category-icon": "^1.0.0"
+    "creativestyle/magesuite-category-icon": "^1.0.0",
+    "creativestyle/magesuite-content-constructor-frontend": "^1.0.0"
   },
   "autoload": {
-    "files": [ "registration.php" ],
+    "files": [
+      "registration.php"
+    ],
     "psr-4": {
       "MageSuite\\Navigation\\": ""
     }
