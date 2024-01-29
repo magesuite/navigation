@@ -81,11 +81,10 @@ class Navigation extends \Magento\Framework\View\Element\Template implements \Ma
      */
     public function getNavigationType()
     {
-        if ($this->getType() == \MageSuite\Navigation\Service\Navigation\Builder::TYPE_MOBILE) {
-            return \MageSuite\Navigation\Service\Navigation\Builder::TYPE_MOBILE;
+        if (empty($this->getType())) {
+            return \MageSuite\Navigation\Service\Navigation\Builder::TYPE_DESKTOP;
         }
-
-        return \MageSuite\Navigation\Service\Navigation\Builder::TYPE_DESKTOP;
+        return $this->getType();
     }
 
     /**
