@@ -28,4 +28,12 @@
     <type name="Magento\Theme\Block\Html\Topmenu">
         <plugin name="catalogTopmenu" type="Magento\Catalog\Plugin\Block\Topmenu" disabled="true" />
     </type>
+
+    <type name="Magento\Staging\Model\CacheState">
+        <arguments>
+            <argument name="cacheTypes" xsi:type="array">
+                <item name="navigation" xsi:type="boolean">false</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
