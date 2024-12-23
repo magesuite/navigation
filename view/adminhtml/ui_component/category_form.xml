@@ -79,7 +79,7 @@
             </argument>
         </field>
     </fieldset>
-    <fieldset name="image_teaser">
+    <fieldset name="image_teaser_fieldset">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="label" xsi:type="string" translate="true">Navigation - Image Teaser</item>
