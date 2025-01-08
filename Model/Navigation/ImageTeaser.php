@@ -6,7 +6,7 @@ class ImageTeaser extends \MageSuite\ContentConstructorFrontend\Model\Component\
 {
     public function __construct(
         protected \Magento\Catalog\Model\Category $category,
-        protected \MageSuite\ContentConstructorFrontend\Model\Component\ImageTeaser\SlideFactory $slideFactory,
+        \MageSuite\ContentConstructorFrontend\Model\Component\ImageTeaser\SlideFactory $slideFactory,
         protected \MageSuite\Navigation\Service\Mapper\CategoryMapper $categoryMapper,
         array $data = []
     ) {
