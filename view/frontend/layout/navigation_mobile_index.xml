@@ -57,6 +57,7 @@
                     <argument name="additional_css_classes" xsi:type="string">cs-dropdown-switcher--offcanvas cs-dropdown-switcher--language</argument>
                     <argument name="show_flags" xsi:type="boolean">true</argument>
                     <argument name="show_labels" xsi:type="boolean">true</argument>
+                    <argument name="html_tag" xsi:type="string">li</argument>
                 </arguments>
             </block>
             <block class="Magento\Directory\Block\Currency" name="navigation.offcanvas.switcher-currency" template="Magento_Directory::currency.phtml" after="-">
