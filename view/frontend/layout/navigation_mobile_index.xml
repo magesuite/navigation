@@ -2,7 +2,7 @@
 <layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
     <update handle="product_tile" />
     <container name="root">
-        <block class="Magento\Framework\View\Element\Template" name="content" />
+        <block class="Magento\Framework\View\Element\Template" name="content" cacheable="false"/>
         <block class="MageSuite\Navigation\Block\Navigation" name="navigation.offcanvas" template="MageSuite_Navigation::offcanvas/drawer.phtml">
             <arguments>
                 <argument name="type" xsi:type="string">mobile</argument>
