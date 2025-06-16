@@ -11,12 +11,12 @@
         <arguments>
             <argument name="allowedExtensions" xsi:type="array">
                 <item name="svg" xsi:type="string">svg</item>
+                <item name="webp" xsi:type="string">webp</item>
             </argument>
             <argument name="allowedMimeTypes" xsi:type="array">
                 <item name="svg" xsi:type="string">image/svg+xml</item>
-            </argument>
-            <argument name="allowedMimeTypes" xsi:type="array">
                 <item name="svg_without_xml" xsi:type="string">image/svg</item>
+                <item name="webp" xsi:type="string">image/webp</item>
             </argument>
         </arguments>
     </virtualType>
