@@ -58,7 +58,8 @@ class CategoryMapper
                 'decoded' => $this->getDecodedImage()
             ],
             'description' => $this->getDescription(),
-            'slogan' => $this->getSlogan()
+            'slogan' => $this->getSlogan(),
+            'image_alt' => $this->getImageAlt()
         ];
 
         return [$slide];
@@ -119,6 +120,11 @@ class CategoryMapper
     public function getDescription()
     {
         return $this->category->getImageTeaserDescription() ?? '';
+    }
+
+    public function getImageAlt(): string
+    {
+        return $this->category->getImageTeaserAlt() ?? '';
     }
 
     /**
