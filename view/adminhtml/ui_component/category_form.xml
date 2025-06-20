@@ -133,6 +133,16 @@
                 </item>
             </argument>
         </field>
+        <field name="image_teaser_alt">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">45</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string" translate="true">Image alt text</item>
+                </item>
+            </argument>
+        </field>
         <field name="image_teaser_cta_label">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
