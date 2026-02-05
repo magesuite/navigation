@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MageSuite\Navigation\Test\Integration\Service\Navigation;
 
 /**
@@ -7,19 +9,10 @@ namespace MageSuite\Navigation\Test\Integration\Service\Navigation;
  */
 class BuilderTest extends \PHPUnit\Framework\TestCase
 {
-    const FIXTURE_DIRECTORY = __DIR__ . '/../../_files/';
-    const ROOT_CATEGORY_ID = 2;
+    protected const ROOT_CATEGORY_ID = 2;
 
-    /**
-     * @var \Magento\TestFramework\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
-     * @var \MageSuite\Navigation\Service\Navigation\Builder
-     */
-    protected $builder;
-
+    protected \Magento\TestFramework\ObjectManager $objectManager;
+    protected \MageSuite\Navigation\Service\Navigation\Builder $builder;
 
     public function setUp(): void
     {
@@ -32,10 +25,10 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
      * @magentoDbIsolation enabled
      * @magentoAppArea frontend
      * @magentoDataFixture Magento/Catalog/_files/categories.php
-     * @magentoDataFixture loadCategoriesNotIncludedInMenu
+     * @magentoDataFixture MageSuite_Navigation::Test/Integration/_files/categories_not_included_in_menu.php
      * @magentoCache all disabled
      */
-    public function testItReturnsNavigationCorrectStructure()
+    public function testItReturnsNavigationCorrectStructure(): void
     {
         $navigation = $this->builder->build(self::ROOT_CATEGORY_ID);
         $this->assertCount(7, $navigation);
@@ -57,9 +50,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
      * @magentoAppArea frontend
      * @magentoDbIsolation enabled
      * @magentoDataFixture Magento/Catalog/_files/categories.php
-     * @magentoDataFixture loadCategoriesNotIncludedInMenu
+     * @magentoDataFixture MageSuite_Navigation::Test/Integration/_files/categories_not_included_in_menu.php
      */
-    public function testItReturnsOnlyItemsForMobileNavigation()
+    public function testItReturnsOnlyItemsForMobileNavigation(): void
     {
         $navigation = $this->builder->build(
             self::ROOT_CATEGORY_ID,
@@ -74,9 +67,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
      * @magentoDbIsolation enabled
      * @magentoAppArea frontend
      * @magentoAdminConfigFixture cc_frontend_extension/configuration/sort_alphabetically 1
-     * @magentoDataFixture loadCategoriesWithProducts
+     * @magentoDataFixture MageSuite_Navigation::Test/Integration/_files/categories_sorted_with_products.php
      */
-    public function testItReturnsNavigationCorrectSorting()
+    public function testItReturnsNavigationCorrectSorting(): void
     {
         $sortedCategories = $this->builder->build(3331);
         $this->assertEquals($sortedCategories[0]->getLabel(), 'Ä Fourth subcategory');
@@ -85,15 +78,14 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($sortedCategories[3]->getLabel(), 'C First subcategory');
     }
 
-
     /**
      * @magentoAppIsolation enabled
      * @magentoDbIsolation enabled
      * @magentoAppArea frontend
      * @magentoDataFixture Magento/Catalog/_files/categories.php
-     * @magentoDataFixture loadCategoriesWithCustomAttributes
+     * @magentoDataFixture MageSuite_Navigation::Test/Integration/_files/categories_with_custom_attributes.php
      */
-    public function testItReturnsCategoriesWithCorrectAttributes()
+    public function testItReturnsCategoriesWithCorrectAttributes(): void
     {
         $result = $this->builder->build(self::ROOT_CATEGORY_ID);
         $this->assertCount(11, $result);
@@ -113,9 +105,9 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
      * @magentoDbIsolation enabled
      * @magentoAppArea frontend
      * @magentoDataFixture Magento/Catalog/_files/categories.php
-     * @magentoDataFixture loadCategoriesWithCustomAttributes
+     * @magentoDataFixture MageSuite_Navigation::Test/Integration/_files/categories_with_custom_attributes.php
      */
-    public function testItReturnsNavigationWithImageTeaser()
+    public function testItReturnsNavigationWithImageTeaser(): void
     {
         $result = $this->builder->build(2);
         $navigationItem = $result[9];
@@ -141,45 +133,12 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
      * @magentoDbIsolation enabled
      * @magentoAppArea frontend
      * @magentoDataFixture Magento/Catalog/_files/categories.php
-     * @magentoDataFixture loadCategoriesWithCustomAttributes
+     * @magentoDataFixture MageSuite_Navigation::Test/Integration/_files/categories_with_custom_attributes.php
      */
-    public function testItProcessesDirctivesProperly()
+    public function testItProcessesDirectivesProperly(): void
     {
         $result = $this->builder->build(2);
         $url = $result[10]->getUrl();
         $this->assertEquals('http://localhost/index.php/url-to-some-nice-page/', $url, 'Failed to assert that directives has been processed correctly.');
-    }
-
-    public static function loadCategoriesNotIncludedInMenu()
-    {
-        include self::FIXTURE_DIRECTORY.'categories_not_included_in_menu.php';
-
-        /** @var \Magento\Framework\App\CacheInterface $cache */
-        $cache = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-            ->create(\Magento\Framework\App\CacheInterface::class);
-
-        $cache->remove(\MageSuite\Category\Model\ResourceModel\Category::CACHE_TAG);
-    }
-
-    public static function loadCategoriesWithCustomAttributes()
-    {
-        include self::FIXTURE_DIRECTORY.'categories_with_custom_attributes.php';
-
-        /** @var \Magento\Framework\App\CacheInterface $cache */
-        $cache = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-            ->create(\Magento\Framework\App\CacheInterface::class);
-
-        $cache->remove(\MageSuite\Category\Model\ResourceModel\Category::CACHE_TAG);
-    }
-
-    public static function loadCategoriesWithProducts()
-    {
-        include self::FIXTURE_DIRECTORY.'categories_sorted_with_products.php';
-
-        /** @var \Magento\Framework\App\CacheInterface $cache */
-        $cache = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-            ->create(\Magento\Framework\App\CacheInterface::class);
-
-        $cache->remove(\MageSuite\Category\Model\ResourceModel\Category::CACHE_TAG);
     }
 }
