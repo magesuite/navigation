@@ -11,8 +11,8 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     protected const ROOT_CATEGORY_ID = 2;
 
-    protected \Magento\TestFramework\ObjectManager $objectManager;
-    protected \MageSuite\Navigation\Service\Navigation\Builder $builder;
+    protected ?\Magento\TestFramework\ObjectManager $objectManager;
+    protected ?\MageSuite\Navigation\Service\Navigation\Builder $builder;
 
     public function setUp(): void
     {
