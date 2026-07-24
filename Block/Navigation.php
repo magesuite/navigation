@@ -30,11 +30,6 @@ class Navigation extends \Magento\Framework\View\Element\Template implements \Ma
     protected $serializer;
 
     /**
-     * @var \Magento\Customer\Model\Session
-     */
-    protected $session;
-
-    /**
      * @var \Magento\Framework\Cache\LockGuardedCacheLoader
      */
     protected $lockGuardedCacheLoader;
@@ -45,7 +40,6 @@ class Navigation extends \Magento\Framework\View\Element\Template implements \Ma
         \MageSuite\Navigation\Service\Navigation\Builder $navigationBuilder,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Serialize\SerializerInterface $serializer,
-        \Magento\Customer\Model\Session $session,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -54,7 +48,6 @@ class Navigation extends \Magento\Framework\View\Element\Template implements \Ma
         $this->navigationBuilder = $navigationBuilder;
         $this->storeManager = $storeManager;
         $this->serializer = $serializer;
-        $this->session = $session;
         $this->lockGuardedCacheLoader = $context->getLockGuardedCacheLoader();
     }
 
