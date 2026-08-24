@@ -5,7 +5,7 @@ namespace MageSuite\Navigation\Model\Navigation;
 class Item extends \Magento\Framework\DataObject
 {
     protected \MageSuite\CategoryIcon\Helper\CategoryIcon $categoryIconHelper;
-    protected \MageSuite\Category\Helper\Category $categoryHelper;
+    protected \MageSuite\ContentConstructorFrontend\Helper\Category $categoryHelper;
     protected \MageSuite\Navigation\Helper\Configuration\Category $categoryConfig;
     protected \MageSuite\Navigation\Model\Navigation\FeaturedProductsFactory $featuredProductsFactory;
     protected \MageSuite\Navigation\Model\Navigation\ImageTeaserFactory $imageTeaserFactory;
@@ -17,7 +17,7 @@ class Item extends \Magento\Framework\DataObject
 
     public function __construct(
         \MageSuite\CategoryIcon\Helper\CategoryIcon $categoryIconHelper,
-        \MageSuite\Category\Helper\Category $categoryHelper,
+        \MageSuite\ContentConstructorFrontend\Helper\Category $categoryHelper,
         \MageSuite\Navigation\Helper\Configuration\Category $categoryConfig,
         \MageSuite\Navigation\Model\Navigation\FeaturedProductsFactory $featuredProductsFactory,
         \MageSuite\Navigation\Model\Navigation\ImageTeaserFactory $imageTeaserFactory,
@@ -109,7 +109,7 @@ class Item extends \Magento\Framework\DataObject
 
     public function getProductCount(): int
     {
-        return $this->categoryHelper->getProductCount($this->category);
+        return $this->categoryHelper->getNumberOfProducts($this->category, false);
     }
 
     public function getFeaturedProducts(): \MageSuite\Navigation\Model\Navigation\FeaturedProducts

@@ -1,45 +1,23 @@
 <?php
+
+declare(strict_types=1);
+
 namespace MageSuite\Navigation\Service\Mapper;
 
 class CategoryMapper
 {
-    /**
-     * @var \MageSuite\ContentConstructorFrontend\Service\MediaResolver
-     */
-    protected $mediaResolver;
+    protected ?\Magento\Catalog\Model\Category $category = null;
 
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    protected $storeManager;
-
-    /**
-     * @var \MageSuite\Navigation\Service\Category\CustomUrlGenerator
-     */
-    protected $customUrlGenerator;
-
-    /**
-     * @var \MageSuite\Media\Service\SrcSetResolver
-     */
-    protected $srcSetResolver;
-
-    protected $category = null;
-
-    protected $rawImageUrl = null;
+    protected ?string $rawImageUrl = null;
 
     public function __construct(
-        \MageSuite\ContentConstructorFrontend\Service\MediaResolver $mediaResolver,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \MageSuite\Navigation\Service\Category\CustomUrlGenerator $customUrlGenerator,
-        \MageSuite\Media\Service\SrcSetResolver $srcSetResolver
-    ) {
-        $this->mediaResolver = $mediaResolver;
-        $this->storeManager = $storeManager;
-        $this->customUrlGenerator = $customUrlGenerator;
-        $this->srcSetResolver = $srcSetResolver;
-    }
+        protected \MageSuite\ContentConstructorFrontend\Service\MediaResolver $mediaResolver,
+        protected \Magento\Store\Model\StoreManagerInterface $storeManager,
+        protected \MageSuite\Navigation\Service\Category\CustomUrlGenerator $customUrlGenerator,
+        protected \Magento\Framework\Escaper $escaper
+    ) {}
 
-    public function mapCategory($category)
+    public function mapCategory(\Magento\Catalog\Model\Category $category): array
     {
         if (!$category->getImageTeaser()) {
             return [];
@@ -127,29 +105,20 @@ class CategoryMapper
         return $this->category->getImageTeaserAlt() ?? '';
     }
 
-    /**
-     * @return string
-     */
-    public function getCtaLabel()
+    public function getCtaLabel(): string
     {
-        return $this->category->getImageTeaserCtaLabel() ?? '';
+        return $this->escaper->escapeHtml($this->category->getImageTeaserCtaLabel() ?? '');
     }
 
-    /**
-     * @return string
-     */
-    public function getCtaLink()
+    public function getCtaLink(): string
     {
         return $this->category->getImageTeaserCtaLink() ? $this->customUrlGenerator->generate($this->category->getImageTeaserCtaLink()) : '';
     }
 
-    /**
-     * @return string
-     */
-    public function getSrcSet()
+    public function getSrcSet(): string
     {
         $imageTeaserUrl = $this->getImageUrl();
 
-        return $imageTeaserUrl ? $this->srcSetResolver->resolveSrcSetByDensity($imageTeaserUrl) : '';
+        return $imageTeaserUrl ? $this->mediaResolver->resolveSrcSetByDensity($imageTeaserUrl) : '';
     }
 }

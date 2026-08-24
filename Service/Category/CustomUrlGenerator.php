@@ -38,12 +38,28 @@ class CustomUrlGenerator
             $this->logger->critical(sprintf('Failed to filter URL: %s', $url));
         }
 
-        if (strpos($url, 'http') !== false) {
-            return $url;
+        $normalizedUrl = $this->normalizeUrl((string)$url);
+
+        if ($this->isAllowedAbsoluteUrl($normalizedUrl)) {
+            return $normalizedUrl;
         }
 
         $baseUrl = $this->storeManager->getStore()->getBaseUrl();
 
-        return $baseUrl . ltrim($url, '/');
+        return $baseUrl . ltrim($normalizedUrl, '/');
+    }
+
+    protected function normalizeUrl(string $url): string
+    {
+        return preg_replace('/[\x00-\x1F\x7F]+/', '', $url);
+    }
+
+    protected function isAllowedAbsoluteUrl(string $url): bool
+    {
+        if (!preg_match('/^([a-zA-Z][a-zA-Z\d+\-.]*):/', $url, $matches)) {
+            return strpos($url, '//') === 0;
+        }
+
+        return in_array(strtolower($matches[1]), ['http', 'https'], true);
     }
 }
