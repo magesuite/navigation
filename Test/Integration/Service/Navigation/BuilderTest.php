@@ -30,6 +30,13 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testItReturnsNavigationCorrectStructure(): void
     {
+        $categoryIds = $this->objectManager->create(\Magento\Catalog\Model\ResourceModel\Category\Collection::class)
+            ->getAllIds();
+
+        $this->objectManager->create(\Magento\Indexer\Model\Indexer::class)
+            ->load(\Magento\Catalog\Model\Indexer\Category\Product::INDEXER_ID)
+            ->reindexList($categoryIds);
+
         $navigation = $this->builder->build(self::ROOT_CATEGORY_ID);
         $this->assertCount(7, $navigation);
         $this->assertCount(1, $navigation[0]->getSubItems());
